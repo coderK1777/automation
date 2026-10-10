@@ -1,0 +1,14 @@
+[Unit]
+Description=TradeBot configured encrypted offsite backup
+After=tradebot-backup.service network-online.target
+Requires=tradebot-backup.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=tradebot
+Group=tradebot
+WorkingDirectory=/opt/tradebot/automation
+ExecStart=/opt/tradebot/automation/.venv/bin/python scripts/backup-scheduled-offsite.py
+UMask=0077
+NoNewPrivileges=true

@@ -1,0 +1,40 @@
+{
+  "observed_at": "2026-10-09T21:38:21.261Z",
+  "verification": "confirmed-saved-draft-and-current-instance",
+  "draft_id": "999127cb-b2da-486b-987d-288aa61022a2~cecfgdraft_6ac8102ed77c8195a97abc4fae93ba58",
+  "revision": 4,
+  "status": "saved",
+  "requires_publish": true,
+  "fields_saved": [
+    "install_script",
+    "start_skill",
+    "environment_variables",
+    "network.allowed_domains"
+  ],
+  "new_network_domain": "api.telegram.org",
+  "preserved_custom_domains": 8,
+  "preserved_network_preset": "package_managers",
+  "suggested_nonsecret_defaults": {
+    "TRADING_MODE": "PAPER",
+    "LIVE_EXECUTION_ENABLED": "false",
+    "DEMO_EXECUTION_AUTHORIZED": "false",
+    "TELEGRAM_DELIVERY_ENABLED": "false"
+  },
+  "secret_values_saved": 0,
+  "repository_membership": "preserved",
+  "current_instance": {
+    "frozen_install": "passed",
+    "repeated_host_startup": "passed",
+    "seven_application_containers": "passed",
+    "authenticated_read_only_readiness": "passed",
+    "non_root_vault_key_access": "passed",
+    "trading_history_preserved": "passed",
+    "prometheus_and_grafana_acceptance": "passed"
+  },
+  "limitations": [
+    "Configuration review/save and publication remain user actions in environment settings.",
+    "Draft persistence does not apply runtime variables or network settings.",
+    "Successful restoration in a fresh task and upstream Git reproduction were not performed.",
+    "Raw demo signing credentials require a secure local/vault/mount mechanism; proxy placeholders cannot sign HMAC."
+  ]
+}

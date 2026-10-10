@@ -1,0 +1,23 @@
+{
+  "observed_at": "2026-10-09T21:36:13.530484+00:00",
+  "verification": "actual-local-containers",
+  "checks": {
+    "prometheus_health": "passed",
+    "api_metrics_scrape": "passed",
+    "11_alert_rules": "passed",
+    "grafana_authenticated_health": "passed",
+    "12_panel_provisioned_dashboard": "passed",
+    "grafana_prometheus_datasource": "passed"
+  },
+  "observed_metrics": {
+    "tradebot_database_available": 1.0,
+    "tradebot_worker_healthy": 1.0,
+    "tradebot_backup_last_attempt_success": 1.0,
+    "tradebot_offsite_backup_last_success_age_seconds": -1.0
+  },
+  "limitations": [
+    "Local evaluated alerts do not establish authorized external delivery.",
+    "Offsite backup state remains unknown until actual configured delivery.",
+    "A real VPS/domain/certificate deployment was not performed."
+  ]
+}

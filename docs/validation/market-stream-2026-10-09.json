@@ -1,0 +1,214 @@
+{
+  "observed_at": "2026-10-09T10:53:31.974002+00:00",
+  "environment": "production-public-only",
+  "checks": [
+    {
+      "channel": "ticker",
+      "symbol": "BTCUSD",
+      "status": "passed",
+      "event_time": "2026-10-09T10:53:16.346502+00:00",
+      "source": "wss://public-socket.india.delta.exchange",
+      "payload": {
+        "last_price": "82458.0",
+        "mark_price": "82457.57982753",
+        "ask": "82458",
+        "ask_size": "827",
+        "bid": "82457.5",
+        "bid_size": "4477",
+        "spot_price": "82495.2",
+        "open": "82680.5",
+        "high": "82744.5",
+        "low": "80344.5",
+        "mark_change_24h": "-0.2290"
+      },
+      "verification": "actual-public-read-only"
+    },
+    {
+      "channel": "ob_l2",
+      "symbol": "BTCUSD",
+      "status": "passed",
+      "event_time": "2026-10-09T10:53:16.709901+00:00",
+      "source": "wss://public-socket.india.delta.exchange",
+      "payload": {
+        "asks": [
+          [
+            "82461.0",
+            "456"
+          ],
+          [
+            "82461.5",
+            "558"
+          ],
+          [
+            "82462.0",
+            "683"
+          ],
+          [
+            "82462.5",
+            "835"
+          ],
+          [
+            "82463.0",
+            "1022"
+          ],
+          [
+            "82463.5",
+            "13724"
+          ],
+          [
+            "82464.0",
+            "16789"
+          ],
+          [
+            "82464.5",
+            "20537"
+          ],
+          [
+            "82465.0",
+            "25123"
+          ],
+          [
+            "82465.5",
+            "30734"
+          ],
+          [
+            "82466.0",
+            "37596"
+          ],
+          [
+            "82467.5",
+            "45992"
+          ],
+          [
+            "82470.0",
+            "1181"
+          ],
+          [
+            "82470.5",
+            "56262"
+          ],
+          [
+            "82475.0",
+            "150"
+          ]
+        ],
+        "bids": [
+          [
+            "82460.5",
+            "4418"
+          ],
+          [
+            "82460.0",
+            "5405"
+          ],
+          [
+            "82459.5",
+            "6611"
+          ],
+          [
+            "82459.0",
+            "8088"
+          ],
+          [
+            "82458.5",
+            "9893"
+          ],
+          [
+            "82458.0",
+            "13289"
+          ],
+          [
+            "82457.5",
+            "16320"
+          ],
+          [
+            "82457.0",
+            "19886"
+          ],
+          [
+            "82456.5",
+            "24327"
+          ],
+          [
+            "82456.0",
+            "29759"
+          ],
+          [
+            "82455.5",
+            "36403"
+          ],
+          [
+            "82455.0",
+            "44532"
+          ],
+          [
+            "82454.5",
+            "54476"
+          ],
+          [
+            "82451.0",
+            "66640"
+          ],
+          [
+            "82446.5",
+            "81540"
+          ]
+        ],
+        "ask": "82461.0",
+        "bid": "82460.5",
+        "depth": 15,
+        "snapshot": true,
+        "sequence_semantics": "complete-top-15-snapshot;exchange-timestamp-monotonic"
+      },
+      "verification": "actual-public-read-only"
+    },
+    {
+      "channel": "mark_price",
+      "symbol": "BTCUSD",
+      "status": "passed",
+      "event_time": "2026-10-09T10:53:17.961759+00:00",
+      "source": "wss://public-socket.india.delta.exchange",
+      "payload": {
+        "mark_price": "82462.89752646"
+      },
+      "verification": "actual-public-read-only"
+    },
+    {
+      "channel": "funding_rate",
+      "symbol": "BTCUSD",
+      "status": "passed",
+      "event_time": "2026-10-09T10:53:30.621646+00:00",
+      "source": "wss://public-socket.india.delta.exchange",
+      "payload": {
+        "funding_rate": "0.002981463557358885",
+        "funding_interval_seconds": 28800,
+        "next_funding_at": "2026-10-09T16:00:00+00:00",
+        "funding_rate_unit": "exchange-raw;not-certified-for-accounting"
+      },
+      "verification": "actual-public-read-only"
+    },
+    {
+      "channel": "candlestick_1m",
+      "symbol": "BTCUSD",
+      "status": "passed",
+      "event_time": "2026-10-09T10:53:16.605319+00:00",
+      "source": "wss://public-socket.india.delta.exchange",
+      "payload": {
+        "open": "82433.0",
+        "high": "82460.5",
+        "low": "82433.0",
+        "close": "82460.5",
+        "volume": "1597.0",
+        "timeframe_seconds": 60,
+        "closed": false,
+        "historical_source": "REST-closed-candles-only"
+      },
+      "verification": "actual-public-read-only"
+    }
+  ],
+  "limitations": [
+    "No authenticated/private/demo/live exchange operation was tested.",
+    "Funding rates retain raw exchange units and are not certified historical accounting inputs.",
+    "Compact intrabar candle events are display data; authoritative closed history uses REST."
+  ]
+}

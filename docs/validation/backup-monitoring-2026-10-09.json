@@ -1,0 +1,25 @@
+{
+  "observed_at": "2026-10-09T20:08:31.896307+00:00",
+  "verification": "actual-local-only",
+  "checks": {
+    "atomic_postgresql_backup": "passed",
+    "private_backup_status_and_database_telemetry": "passed",
+    "aes_256_gcm_application_dump_encryption": "passed",
+    "authenticated_decryption_hash_matches_original": "passed",
+    "disposable_postgresql_restore_migration_users_instruments": "passed",
+    "prometheus_configuration_and_11_alert_rules": "passed",
+    "caddy_configuration_in_pinned_image": "passed",
+    "compose_monitoring_and_https_overlays": "passed",
+    "configured_offsite_scheduler_missing_destination_gate": "passed"
+  },
+  "offline_tests": {
+    "encrypted_backup_contract_tests": 9,
+    "provenance_stream_telemetry_tests": 21
+  },
+  "limitations": [
+    "No external backup destination was configured and no offsite data transfer occurred.",
+    "A separately protected recovery copy of the encryption key requires operator provisioning.",
+    "No public domain/ACME certificate or VPS deployment was created.",
+    "Prometheus/Grafana runtime acceptance pending app container startup at this observation."
+  ]
+}

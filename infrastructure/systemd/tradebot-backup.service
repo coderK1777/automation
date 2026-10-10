@@ -1,0 +1,15 @@
+[Unit]
+Description=TradeBot durable PostgreSQL backup
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+User=tradebot
+Group=tradebot
+WorkingDirectory=/opt/tradebot/automation
+Environment=UV_CACHE_DIR=/opt/tradebot/cache/uv
+Environment=DOCKER_CONFIG=/opt/tradebot/cache/docker
+ExecStart=/opt/tradebot/automation/.venv/bin/python scripts/backup.py
+UMask=0077
+NoNewPrivileges=true

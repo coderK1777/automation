@@ -1,0 +1,15 @@
+{
+  "checked_at_utc": "2026-10-09T19:58:56.318333+00:00",
+  "environment": "DEMO",
+  "production_private_orders": "structurally unavailable",
+  "mode": "read_only",
+  "checks": [
+    {
+      "name": "private_authentication",
+      "classification": "blocked",
+      "status": "not_run",
+      "reason": "Demo credentials are not configured securely"
+    }
+  ],
+  "certifies_production_readiness": false
+}

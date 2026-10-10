@@ -1,0 +1,55 @@
+{
+  "mode": "PAPER",
+  "market_source": "Delta Exchange India public API",
+  "private_exchange_requests": 0,
+  "strategy_id": 4,
+  "backtest_id": 2,
+  "backtest_status": "COMPLETED",
+  "position_id": "919bf4859b984abfafdbd2e4920dee59",
+  "filled_orders": 2,
+  "cancelled_protection_orders": 2,
+  "account": {
+    "id": 1,
+    "mode": "PAPER",
+    "settlement_asset": "USD",
+    "initial_balance": "1000.000000000000",
+    "cash": "998.753397500000",
+    "equity": "998.753397500000",
+    "realized_pnl": "-0.420000000000",
+    "unrealized_pnl": "0",
+    "margin_used": "0",
+    "available_margin": "998.753397500000",
+    "fees_paid": "0.826602500000",
+    "planning_capital_inr": "50000.000000000000",
+    "usd_inr_rate": null,
+    "emergency_stop": false,
+    "reconciliation_required": false,
+    "simulated": true,
+    "reporting_currency": "USD",
+    "planning_note": "INR capital is a separate planning input. FX conversion requires an explicit rate.",
+    "high_water_equity": "1000.000000000000",
+    "created_at": "2026-10-08T22:08:35.121585+00:00"
+  },
+  "journal_records": 30,
+  "notification_records": 6,
+  "worker": {
+    "status": "healthy",
+    "workers": [
+      {
+        "id": "823c3e845cfb4ef0b1f75e35857e3231",
+        "status": "RUNNING",
+        "last_error": null,
+        "updated_at": "2026-10-09T10:13:47.252628+00:00",
+        "stale": false
+      },
+      {
+        "id": "c5d1daf6541344ba851219d452ca918f",
+        "status": "STOPPED",
+        "last_error": null,
+        "updated_at": "2026-10-09T10:08:38.556828+00:00",
+        "stale": true
+      }
+    ]
+  },
+  "completed_at": "2026-10-09T10:13:47.766198+00:00"
+}

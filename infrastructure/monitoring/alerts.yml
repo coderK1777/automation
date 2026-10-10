@@ -1,0 +1,60 @@
+groups:
+  - name: tradebot-operational
+    rules:
+      - alert: TradeBotApiUnavailable
+        expr: up{job="tradebot-api"} == 0
+        for: 1m
+        labels: {severity: critical}
+        annotations:
+          summary: TradeBot API cannot be scraped
+          description: Inspect process and dependency health; preserve exchange state before recovery.
+      - alert: TradeBotDatabaseUnavailable
+        expr: tradebot_database_available == 0
+        for: 30s
+        labels: {severity: critical}
+        annotations: {summary: TradeBot database is unavailable}
+      - alert: TradeBotWorkerUnhealthy
+        expr: tradebot_worker_healthy == 0
+        for: 1m
+        labels: {severity: critical}
+        annotations: {summary: No fresh successful trading worker exists}
+      - alert: TradeBotMarketFeedStale
+        expr: tradebot_exchange_feed_live{channel="ticker"} == 0
+        for: 45s
+        labels: {severity: warning}
+        annotations: {summary: Public ticker continuity is unavailable}
+      - alert: TradeBotOrderUnknown
+        expr: tradebot_unknown_orders > 0
+        for: 10s
+        labels: {severity: critical}
+        annotations: {summary: An order needs authoritative reconciliation}
+      - alert: TradeBotReconciliationRequired
+        expr: tradebot_paper_reconciliation_required > 0
+        for: 30s
+        labels: {severity: critical}
+        annotations: {summary: Paper account is unavailable or needs reconciliation}
+      - alert: TradeBotBackupMissingOrOld
+        expr: tradebot_backup_last_success_age_seconds < 0 or tradebot_backup_last_success_age_seconds > 90000
+        for: 5m
+        labels: {severity: critical}
+        annotations: {summary: No successful backup was observed within 25 hours}
+      - alert: TradeBotBackupFailed
+        expr: tradebot_backup_last_attempt_success == 0
+        for: 1m
+        labels: {severity: critical}
+        annotations: {summary: Most recent backup attempt failed}
+      - alert: TradeBotOffsiteBackupMissingOrOld
+        expr: tradebot_offsite_backup_last_success_age_seconds < 0 or tradebot_offsite_backup_last_success_age_seconds > 90000
+        for: 5m
+        labels: {severity: critical}
+        annotations: {summary: No encrypted offsite delivery was observed within 25 hours}
+      - alert: TradeBotNotificationBacklog
+        expr: tradebot_notification_queue_backlog > 100 or tradebot_notification_queue_failed > 0
+        for: 5m
+        labels: {severity: warning}
+        annotations: {summary: Operator notification delivery needs attention}
+      - alert: TradeBotHttpErrors
+        expr: sum(rate(tradebot_http_requests_total{status=~"5.."}[5m])) / clamp_min(sum(rate(tradebot_http_requests_total[5m])), 0.01) > 0.05
+        for: 5m
+        labels: {severity: warning}
+        annotations: {summary: More than 5 percent of recent API requests failed}

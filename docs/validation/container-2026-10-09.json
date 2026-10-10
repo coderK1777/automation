@@ -1,0 +1,36 @@
+{
+  "completed_at": "2026-10-09T10:21:15.212732+00:00",
+  "api_proxy_login": "passed",
+  "database": "ok",
+  "redis": "ok",
+  "account_cash_preserved": "998.753397500000",
+  "open_positions": 0,
+  "paper_mode": true,
+  "live_enabled": false,
+  "worker": {
+    "status": "healthy",
+    "workers": [
+      {
+        "id": "826981cee5fc468e86963a648def932e",
+        "status": "RUNNING",
+        "last_error": null,
+        "updated_at": "2026-10-09T10:20:59.567868+00:00",
+        "stale": false
+      },
+      {
+        "id": "823c3e845cfb4ef0b1f75e35857e3231",
+        "status": "STOPPED",
+        "last_error": null,
+        "updated_at": "2026-10-09T10:19:33.615810+00:00",
+        "stale": true
+      },
+      {
+        "id": "c5d1daf6541344ba851219d452ca918f",
+        "status": "STOPPED",
+        "last_error": null,
+        "updated_at": "2026-10-09T10:08:38.556828+00:00",
+        "stale": true
+      }
+    ]
+  }
+}

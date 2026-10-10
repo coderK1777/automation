@@ -1,0 +1,33 @@
+{
+    admin off
+    email {$TRADEBOT_ACME_EMAIL}
+}
+
+{$TRADEBOT_DOMAIN} {
+    header {
+        Strict-Transport-Security "max-age=31536000"
+        X-Content-Type-Options nosniff
+        Referrer-Policy same-origin
+        -Server
+    }
+    # Metrics belong to the internal monitoring boundary.
+    @metrics path /metrics /api/metrics
+    respond @metrics 404
+
+    handle /api/v1/* {
+        reverse_proxy api:8000 {
+            # Trust the edge connection, never the public client's headers.
+            header_up -Forwarded
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto https
+            flush_interval -1
+        }
+    }
+    handle {
+        reverse_proxy web:3000 {
+            header_up -Forwarded
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto https
+        }
+    }
+}

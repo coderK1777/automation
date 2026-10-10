@@ -1,0 +1,18 @@
+# syntax=docker/dockerfile:1.7
+FROM node:24-bookworm-slim@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20 AS build
+ENV NEXT_TELEMETRY_DISABLED=1
+ARG BACKEND_URL=http://api:8000
+ENV BACKEND_URL=${BACKEND_URL}
+WORKDIR /app
+COPY apps/web/ ./
+RUN --mount=type=secret,id=platform_ca,required=false \
+    if [ -f /run/secrets/platform_ca ]; then export NODE_EXTRA_CA_CERTS=/run/secrets/platform_ca; fi; \
+    npm ci --no-audit --no-fund && npm run build && npm cache clean --force
+FROM node:24-bookworm-slim@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20
+ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 HOSTNAME=0.0.0.0 PORT=3000
+WORKDIR /app
+COPY --from=build --chown=node:node /app/.next/standalone ./
+COPY --from=build --chown=node:node /app/.next/static ./.next/static
+USER node
+EXPOSE 3000
+CMD ["node", "server.js"]

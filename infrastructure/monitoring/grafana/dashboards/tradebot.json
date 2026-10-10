@@ -1,0 +1,452 @@
+{
+  "uid": "tradebot-operations",
+  "title": "TradeBot operational evidence",
+  "schemaVersion": 40,
+  "version": 1,
+  "editable": false,
+  "refresh": "15s",
+  "timezone": "browser",
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "tags": [
+    "tradebot",
+    "operations"
+  ],
+  "description": "Measured API/worker/public-feed observations. Unknown values do not establish trading readiness. Prometheus alerts are local until an operator configures and verifies delivery.",
+  "panels": [
+    {
+      "id": 1,
+      "title": "Database available",
+      "type": "stat",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "tradebot-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "tradebot_database_available",
+          "refId": "A",
+          "legendFormat": "{{symbol}} {{channel}} {{route}} {{environment}}"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 6,
+        "h": 4
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unobserved",
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      }
+    },
+    {
+      "id": 2,
+      "title": "Worker healthy",
+      "type": "stat",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "tradebot-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "tradebot_worker_healthy",
+          "refId": "A",
+          "legendFormat": "{{symbol}} {{channel}} {{route}} {{environment}}"
+        }
+      ],
+      "gridPos": {
+        "x": 6,
+        "y": 0,
+        "w": 6,
+        "h": 4
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unobserved",
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      }
+    },
+    {
+      "id": 3,
+      "title": "Backup age",
+      "type": "stat",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "tradebot-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "tradebot_backup_last_success_age_seconds",
+          "refId": "A",
+          "legendFormat": "{{symbol}} {{channel}} {{route}} {{environment}}"
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 6,
+        "h": 4
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unobserved",
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      }
+    },
+    {
+      "id": 4,
+      "title": "Open PAPER positions",
+      "type": "stat",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "tradebot-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "tradebot_paper_open_positions",
+          "refId": "A",
+          "legendFormat": "{{symbol}} {{channel}} {{route}} {{environment}}"
+        }
+      ],
+      "gridPos": {
+        "x": 18,
+        "y": 0,
+        "w": 6,
+        "h": 4
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unobserved",
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      }
+    },
+    {
+      "id": 5,
+      "title": "Public data age",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "tradebot-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "tradebot_market_data_age_seconds",
+          "refId": "A",
+          "legendFormat": "{{symbol}} {{channel}} {{route}} {{environment}}"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 4,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unobserved",
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 6,
+      "title": "Feed continuity",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "tradebot-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "tradebot_exchange_feed_live",
+          "refId": "A",
+          "legendFormat": "{{symbol}} {{channel}} {{route}} {{environment}}"
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 4,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unobserved",
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 7,
+      "title": "API p95 latency",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "tradebot-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum by (le,route) (rate(tradebot_http_request_seconds_bucket[5m])))",
+          "refId": "A",
+          "legendFormat": "{{symbol}} {{channel}} {{route}} {{environment}}"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 12,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unobserved",
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 8,
+      "title": "API errors",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "tradebot-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "sum by (status) (rate(tradebot_http_requests_total{status=~\"5..\"}[5m]))",
+          "refId": "A",
+          "legendFormat": "{{symbol}} {{channel}} {{route}} {{environment}}"
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 12,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unobserved",
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 9,
+      "title": "Notification backlog",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "tradebot-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "tradebot_notification_queue_backlog",
+          "refId": "A",
+          "legendFormat": "{{symbol}} {{channel}} {{route}} {{environment}}"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 20,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unobserved",
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 10,
+      "title": "Reconciliation age",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "tradebot-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "tradebot_reconciliation_age_seconds",
+          "refId": "A",
+          "legendFormat": "{{symbol}} {{channel}} {{route}} {{environment}}"
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 20,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unobserved",
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 11,
+      "title": "API resident memory",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "tradebot-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "process_resident_memory_bytes{job=\"tradebot-api\"}",
+          "refId": "A",
+          "legendFormat": "{{symbol}} {{channel}} {{route}} {{environment}}"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 28,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unobserved",
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 12,
+      "title": "API CPU",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "tradebot-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "rate(process_cpu_seconds_total{job=\"tradebot-api\"}[5m])",
+          "refId": "A",
+          "legendFormat": "{{symbol}} {{channel}} {{route}} {{environment}}"
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 28,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "Unobserved",
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom"
+        }
+      }
+    }
+  ]
+}

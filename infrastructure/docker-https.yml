@@ -1,0 +1,38 @@
+# VPS-only HTTPS edge. Set a real domain, origin and secure cookies first.
+services:
+  api:
+    command: [uvicorn, "tradebot.app:app", --host, "0.0.0.0", --port, "8000", --proxy-headers, --forwarded-allow-ips, "172.30.88.3"]
+    networks:
+      default: {}
+      edge:
+        ipv4_address: 172.30.88.2
+  web:
+    networks: [default, edge]
+  caddy:
+    image: caddy:2.10.2-alpine@sha256:4c6e91c6ed0e2fa03efd5b44747b625fec79bc9cd06ac5235a779726618e530d
+    profiles: [https]
+    restart: unless-stopped
+    user: "1000:1000"
+    environment:
+      TRADEBOT_DOMAIN: ${TRADEBOT_DOMAIN:?Set TRADEBOT_DOMAIN before deploying HTTPS}
+      TRADEBOT_ACME_EMAIL: ${TRADEBOT_ACME_EMAIL:?Set an ACME contact email}
+    ports: ["80:80", "443:443", "443:443/udp"]
+    volumes:
+      - ./infrastructure/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./.runtime/caddy/data:/data
+      - ./.runtime/caddy/config:/config
+    networks:
+      edge:
+        ipv4_address: 172.30.88.3
+    depends_on: [api, web]
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: [ALL]
+    sysctls:
+      net.ipv4.ip_unprivileged_port_start: 0
+    read_only: true
+    tmpfs: ["/tmp:rw,noexec,nosuid,size=16m"]
+networks:
+  edge:
+    ipam:
+      config:
+        - subnet: 172.30.88.0/24

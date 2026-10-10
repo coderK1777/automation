@@ -1,0 +1,16 @@
+{
+  "observed_at": "2026-10-09T21:40:45.608352+00:00",
+  "verification": "actual-final-local-only",
+  "checks": {
+    "current_migration_head_and_all_application_tables_restored": "passed",
+    "operator_and_231_instruments_restored": "passed",
+    "fresh_dump_aes_256_gcm_encryption": "passed",
+    "authenticated_decryption_and_plaintext_hash": "passed"
+  },
+  "migration_head": "2fe6f574ac85",
+  "dump_size_bytes": 767637,
+  "limitations": [
+    "No offsite upload or independent recovery-key storage was performed.",
+    "A public VPS/domain deployment and fresh-task restoration were not performed."
+  ]
+}

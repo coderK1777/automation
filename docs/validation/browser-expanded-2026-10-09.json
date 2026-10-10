@@ -1,0 +1,22 @@
+{
+  "completed_at": "2026-10-09T20:51:32.628518+00:00",
+  "browser": "Chromium",
+  "main_mutations": "authentication sessions only",
+  "scratch_database": "temporary SQLite; discarded after checks",
+  "private_exchange_requests": 0,
+  "telegram_requests": 0,
+  "javascript_errors": 0,
+  "desktop_routes_checked": 21,
+  "mobile_authenticated_routes_checked": 20,
+  "mobile_width_px": 390,
+  "research_document_review_and_draft": "PASSED",
+  "source_change_clears_prior_candidate": "PASSED",
+  "correlated_risk_edits_preserve_groups": "PASSED",
+  "fixed_sizing_and_strategy_caps_preserved": "PASSED",
+  "notional_and_advanced_volatility_sizing": "PASSED",
+  "attributed_news_and_blackout": "PASSED",
+  "completed_report_and_csv_export": "PASSED",
+  "identity_mfa_and_user_administration": "PASSED",
+  "typed_paper_reset_preserves_history": "PASSED",
+  "credentialless_demo_gates": "PASSED"
+}

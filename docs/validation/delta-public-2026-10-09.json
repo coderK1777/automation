@@ -1,0 +1,147 @@
+{
+  "checked_at_utc": "2026-10-08T22:01:21.056109+00:00",
+  "tls_verification": "enabled",
+  "production_private_orders": "structurally unavailable",
+  "results": [
+    {
+      "environment": "production",
+      "kind": "actual_public_exchange_check",
+      "checks": [
+        {
+          "name": "products",
+          "status": "passed",
+          "details": {
+            "product_count": 231,
+            "preferred_products": [
+              {
+                "id": 3136,
+                "symbol": "ETHUSD",
+                "contract_type": "perpetual_futures",
+                "notional_type": "vanilla",
+                "contract_value": "0.01",
+                "contract_value_currency": "ETH",
+                "tick_size": "0.05",
+                "quote_asset": "USD",
+                "settlement_asset": "USD",
+                "trading_status": "operational",
+                "metadata_verified": false
+              },
+              {
+                "id": 27,
+                "symbol": "BTCUSD",
+                "contract_type": "perpetual_futures",
+                "notional_type": "vanilla",
+                "contract_value": "0.001",
+                "contract_value_currency": "BTC",
+                "tick_size": "0.5",
+                "quote_asset": "USD",
+                "settlement_asset": "USD",
+                "trading_status": "operational",
+                "metadata_verified": false
+              }
+            ]
+          }
+        },
+        {
+          "name": "ticker",
+          "status": "passed",
+          "details": {
+            "symbol": "BTCUSD",
+            "product_id": 27,
+            "mark_price": "81705.28408856",
+            "close": "81706.0"
+          }
+        },
+        {
+          "name": "historical_candles",
+          "status": "passed",
+          "details": {
+            "count": 16,
+            "first_timestamp": 1791495900,
+            "last_timestamp": 1791496800
+          }
+        },
+        {
+          "name": "public_websocket_ticker",
+          "status": "passed",
+          "details": {
+            "type": "ticker",
+            "symbol": "BTCUSD",
+            "timestamp_us": 1791496877706670
+          }
+        }
+      ],
+      "private_demo_tests": "not executed: no credentials used by public smoke script"
+    },
+    {
+      "environment": "demo",
+      "kind": "actual_public_exchange_check",
+      "checks": [
+        {
+          "name": "products",
+          "status": "passed",
+          "details": {
+            "product_count": 16,
+            "preferred_products": [
+              {
+                "id": 1699,
+                "symbol": "ETHUSD",
+                "contract_type": "perpetual_futures",
+                "notional_type": "vanilla",
+                "contract_value": "0.01",
+                "contract_value_currency": "ETH",
+                "tick_size": "0.05",
+                "quote_asset": "USD",
+                "settlement_asset": "USD",
+                "trading_status": "operational",
+                "metadata_verified": false
+              },
+              {
+                "id": 84,
+                "symbol": "BTCUSD",
+                "contract_type": "perpetual_futures",
+                "notional_type": "vanilla",
+                "contract_value": "0.001",
+                "contract_value_currency": "BTC",
+                "tick_size": "0.1",
+                "quote_asset": "USD",
+                "settlement_asset": "USD",
+                "trading_status": "operational",
+                "metadata_verified": false
+              }
+            ]
+          }
+        },
+        {
+          "name": "ticker",
+          "status": "passed",
+          "details": {
+            "symbol": "BTCUSD",
+            "product_id": 84,
+            "mark_price": "81718.38396457",
+            "close": "81717.5"
+          }
+        },
+        {
+          "name": "historical_candles",
+          "status": "passed",
+          "details": {
+            "count": 16,
+            "first_timestamp": 1791495900,
+            "last_timestamp": 1791496800
+          }
+        },
+        {
+          "name": "public_websocket_ticker",
+          "status": "passed",
+          "details": {
+            "type": "ticker",
+            "symbol": "BTCUSD",
+            "timestamp_us": 1791496878774557
+          }
+        }
+      ],
+      "private_demo_tests": "not executed: no credentials used by public smoke script"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "observed_at": "2026-10-09T21:40:13.639272+00:00",
+  "source_scope": "Final local application source, including post-client clock persistence with an independent NullPool connection.",
+  "python": {
+    "passed": 612,
+    "skipped": 5,
+    "failed": 0,
+    "warnings": 1,
+    "scope": "unit/contract/SQLite/security/fault tests; five real-PostgreSQL-only checks skip"
+  },
+  "postgresql": {
+    "passed": 206,
+    "skipped": 0,
+    "failed": 0,
+    "warnings": 1,
+    "scope": "all integration/fault/end-to-end/security tests in disposable isolated schema"
+  },
+  "clock_worker_regressions": {
+    "sqlite_passed": 9,
+    "sqlite_postgres_skip": 1,
+    "postgres_passed": 10,
+    "scope": "async cleanup, concurrency, failure/rollback durability and retained pool slot"
+  },
+  "frontend": {
+    "strict_typecheck": "passed",
+    "tests_passed": 5,
+    "production_build": "passed",
+    "npm_production_audit_known_vulnerabilities": 0,
+    "desktop_routes": 21,
+    "mobile_authenticated_routes": 20,
+    "javascript_errors": 0
+  },
+  "static_checks": {
+    "ruff": "passed",
+    "relative_document_links": "passed"
+  },
+  "unrun_external_acceptance": [
+    "credentialed India DEMO authentication/order/cancel/fill/native protection/reconciliation",
+    "authorized Telegram delivery",
+    "public VPS HTTPS domain/certificate and reboot",
+    "offsite backup transfer/restore and independent recovery-key storage",
+    "independent security/risk/operational review",
+    "fresh-task restoration"
+  ],
+  "remaining_implementation": [
+    "unsupported advanced DEMO strategy policies and correlated groups",
+    "production private executor"
+  ],
+  "live_enabled": false
+}

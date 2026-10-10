@@ -1,0 +1,10 @@
+{
+  "completed_at": "2026-10-09T10:15:33.687381+00:00",
+  "desktop_routes_checked": 17,
+  "mobile_routes_checked": 6,
+  "mobile_width_px": 390,
+  "browser": "Chromium",
+  "javascript_errors": 0,
+  "real_data_backtest_via_ui": "COMPLETED",
+  "mode": "PAPER"
+}

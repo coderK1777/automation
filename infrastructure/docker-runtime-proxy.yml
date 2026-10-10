@@ -1,0 +1,28 @@
+# Add only when running inside a managed cloud egress-proxy environment.
+services:
+  api:
+    environment:
+      HTTPS_PROXY: ${HTTPS_PROXY:-}
+      HTTP_PROXY: ${HTTP_PROXY:-}
+      NO_PROXY: postgres,redis,api,web,localhost,127.0.0.1
+      SSL_CERT_FILE: /app/trust/ca-bundle.pem
+      REQUESTS_CA_BUNDLE: /app/trust/ca-bundle.pem
+    extra_hosts:
+      - "${TRADEBOT_PROXY_HOST}:${TRADEBOT_PROXY_IP}"
+    volumes:
+      - ./.runtime/ca-bundle.pem:/app/trust/ca-bundle.pem:ro
+  worker: &proxy-worker
+    environment:
+      HTTPS_PROXY: ${HTTPS_PROXY:-}
+      HTTP_PROXY: ${HTTP_PROXY:-}
+      NO_PROXY: postgres,redis,api,web,localhost,127.0.0.1
+      SSL_CERT_FILE: /app/trust/ca-bundle.pem
+      REQUESTS_CA_BUNDLE: /app/trust/ca-bundle.pem
+    extra_hosts:
+      - "${TRADEBOT_PROXY_HOST}:${TRADEBOT_PROXY_IP}"
+    volumes:
+      - ./.runtime/ca-bundle.pem:/app/trust/ca-bundle.pem:ro
+  demo:
+    <<: *proxy-worker
+  auxiliary:
+    <<: *proxy-worker

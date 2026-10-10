@@ -1,0 +1,100 @@
+name: tradebot-pro
+services:
+  postgres:
+    image: postgres:18@sha256:74935e72241653ca55e0414067e6d8763aceb8a810eb51b452253ec3dcfc4336
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?Run scripts/setup-local.sh}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run scripts/setup-local.sh}
+      POSTGRES_DB: ${POSTGRES_DB:-tradebot}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+  redis:
+    image: redis:8@sha256:2c2dff791878316e3b083188be0d578423b24813cdda5de0e80ea4f7b3e6bfd6
+    restart: unless-stopped
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?Run scripts/setup-local.sh}
+    command: ["sh", "-c", "exec redis-server --appendonly yes --requirepass \"$$REDIS_PASSWORD\""]
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "REDISCLI_AUTH=$$REDIS_PASSWORD redis-cli ping | grep -q PONG"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+  api:
+    image: tradebot-api:local
+    user: "${TRADEBOT_RUNTIME_UID:-10001}:${TRADEBOT_RUNTIME_GID:-10001}"
+    profiles: ["app"]
+    build:
+      context: .
+      dockerfile: infrastructure/Dockerfile.api
+    restart: unless-stopped
+    env_file: .env
+    environment: &app-environment
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379/0
+      TRADING_MODE: PAPER
+      LIVE_EXECUTION_ENABLED: "false"
+      TRADEBOT_VAULT_KEY_FILE: /run/tradebot-secrets/vault.key
+      TRADEBOT_VAULT_FILE: /run/tradebot-secrets/credentials.vault
+    volumes: &vault-mounts
+      - ./.runtime/container-secrets:/run/tradebot-secrets:ro
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      postgres: {condition: service_healthy}
+      redis: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/v1/ready', timeout=3)"]
+      interval: 3s
+      timeout: 4s
+      retries: 30
+    command: ["uvicorn", "tradebot.app:app", "--host", "0.0.0.0", "--port", "8000", "--no-proxy-headers"]
+  worker: &background-worker
+    image: tradebot-api:local
+    user: "${TRADEBOT_RUNTIME_UID:-10001}:${TRADEBOT_RUNTIME_GID:-10001}"
+    profiles: ["app"]
+    build:
+      context: .
+      dockerfile: infrastructure/Dockerfile.api
+    restart: unless-stopped
+    env_file: .env
+    environment: *app-environment
+    volumes: *vault-mounts
+    depends_on:
+      postgres: {condition: service_healthy}
+      redis: {condition: service_healthy}
+      api: {condition: service_healthy}
+    command: ["python", "-m", "tradebot.worker"]
+  demo:
+    <<: *background-worker
+    command: ["python", "-m", "tradebot.demo_worker"]
+  auxiliary:
+    <<: *background-worker
+    command: ["python", "-m", "tradebot.auxiliary_worker"]
+  web:
+    image: tradebot-web:local
+    profiles: ["app"]
+    build:
+      context: .
+      dockerfile: infrastructure/Dockerfile.web
+    restart: unless-stopped
+    environment:
+      BACKEND_URL: http://api:8000
+      NEXT_TELEMETRY_DISABLED: "1"
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on: [api]
+volumes:
+  postgres_data:
+  redis_data:
