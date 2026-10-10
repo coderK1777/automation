@@ -1,0 +1,53 @@
+# Docker Desktop: store owner-only vault files on a Linux named volume.
+x-local-vault: &local-vault
+  user: "10001:10001"
+  volumes: !override
+    - local_vault:/run/tradebot-secrets:ro
+services:
+  api:
+    <<: *local-vault
+    ports: !override
+      - "127.0.0.1:${TRADEBOT_LOCAL_API_PORT:-8000}:8000"
+  worker:
+    <<: *local-vault
+    ports: !reset []
+  demo:
+    <<: *local-vault
+    ports: !reset []
+  auxiliary:
+    <<: *local-vault
+    ports: !reset []
+  web:
+    ports: !override
+      - "127.0.0.1:${TRADEBOT_LOCAL_WEB_PORT:-3000}:3000"
+  postgres:
+    ports: !override
+      - "127.0.0.1:${TRADEBOT_LOCAL_DATABASE_PORT:-5432}:5432"
+  redis:
+    ports: !override
+      - "127.0.0.1:${TRADEBOT_LOCAL_REDIS_PORT:-6379}:6379"
+  vault-init:
+    image: tradebot-api:local
+    profiles: [local-setup]
+    user: "0:0"
+    environment:
+      TRADEBOT_VAULT_KEY_FILE: /run/tradebot-secrets/vault.key
+      TRADEBOT_VAULT_FILE: /run/tradebot-secrets/credentials.vault
+    volumes:
+      - local_vault:/run/tradebot-secrets
+    command:
+      - python
+      - -c
+      - |
+        import os
+        from pathlib import Path
+        from tradebot.vault import initialize_vault
+        directory = Path('/run/tradebot-secrets')
+        os.chown(directory, 10001, 10001)
+        directory.chmod(0o700)
+        os.setgid(10001)
+        os.setuid(10001)
+        initialize_vault()
+        print('Private local vault initialized or preserved; no keys printed.')
+volumes:
+  local_vault:

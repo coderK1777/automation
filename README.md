@@ -19,6 +19,8 @@ workspace file. See [OPEN-IN-VSCODE.md](OPEN-IN-VSCODE.md). Credentials, local
 databases, dependency installations and builds are excluded from the repository.
 The verified runtime is Linux; VS Code editing also works on macOS/Windows.
 
+To run the dashboard from your Windows Downloads folder, see [DOWNLOADS-START.md](DOWNLOADS-START.md). The PowerShell launcher uses Docker Desktop with a private Linux vault volume and keeps real-money execution disabled.
+
 ## Cloud development startup
 
 ```bash
